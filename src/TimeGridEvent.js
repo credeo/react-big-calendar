@@ -28,7 +28,7 @@ function TimeGridEvent(props) {
   let { height, top, width, xOffset } = style
   const inner = [
     <div key="1" className="rbc-event-label">
-      {label}
+      <span className="rbc-event-time-range">{label}</span>
     </div>,
     <div key="2" className="rbc-event-content">
       {Event ? <Event event={event} title={title} /> : title}
@@ -42,6 +42,14 @@ function TimeGridEvent(props) {
         onDoubleClick={onDoubleClick}
         style={{
           ...userProps.style,
+          color: `rgb(${event.color[0]},${event.color[1]},${event.color[2]})`,
+          borderColor: `rgb(${event.color[0]},${event.color[1]},${
+            event.color[2]
+          })`,
+          background: `rgba(${event.color[0]},${event.color[1]},${
+            event.color[2]
+          },.1)`,
+          // backgroundColor: `${event.color}`,
           top: `${top}%`,
           height: `${height}%`,
           [isRtl ? 'right' : 'left']: `${Math.max(0, xOffset)}%`,
@@ -56,6 +64,7 @@ function TimeGridEvent(props) {
           'rbc-selected': selected,
           'rbc-event-continues-earlier': continuesEarlier,
           'rbc-event-continues-later': continuesLater,
+          'rbc-event-hack': true,
         })}
       >
         {inner}

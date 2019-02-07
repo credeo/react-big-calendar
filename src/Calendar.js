@@ -114,6 +114,17 @@ class Calendar extends React.Component {
     events: PropTypes.arrayOf(PropTypes.object),
 
     /**
+     * Accessor for the event color, used to display event (you guessed it: COLOR)
+     *
+     * ```js
+     * string | (event: Object) => string
+     * ```
+     *
+     * @type {(func|string)}
+     */
+    colorAccessor: accessor,
+
+    /**
      * Accessor for the event title, used to display event information. Should
      * resolve to a `renderable` value.
      *
@@ -711,6 +722,11 @@ class Calendar extends React.Component {
       noEventsInRange: PropTypes.node,
       showMore: PropTypes.func,
     }),
+
+    /**
+     * Doctors from db...
+     */
+    doctors: PropTypes.array,
   }
 
   static defaultProps = {
@@ -767,6 +783,7 @@ class Calendar extends React.Component {
     messages = {},
     components = {},
     formats = {},
+    doctors = [],
   }) {
     let names = viewNames(views)
     const msgs = message(messages)
@@ -779,6 +796,7 @@ class Calendar extends React.Component {
         slotProp: (...args) =>
           (slotPropGetter && slotPropGetter(...args)) || {},
         dayProp: (...args) => (dayPropGetter && dayPropGetter(...args)) || {},
+        getDoctors: doctors,
       },
       components: defaults(components[view] || {}, omit(components, names), {
         eventWrapper: NoopWrapper,
@@ -798,6 +816,7 @@ class Calendar extends React.Component {
         resourceId: wrapAccessor(resourceIdAccessor),
         resourceTitle: wrapAccessor(resourceTitleAccessor),
       },
+      doctors: doctors,
     }
   }
 

@@ -89,6 +89,12 @@ class DayColumn extends React.Component {
     }
   }
 
+  getDoctorSlots() {
+    return this.props.doctors
+    // const doctorSlots = this.props.doctors ? this.props.doctors : [];
+    // return doctorSlots;
+  }
+
   render() {
     const {
       max,
@@ -127,6 +133,7 @@ class DayColumn extends React.Component {
             resource={resource}
             getters={getters}
             components={components}
+            doctorSlots={this.getDoctorSlots()}
           />
         ))}
         <EventContainer
@@ -382,11 +389,14 @@ DayColumn.propTypes = {
   className: PropTypes.string,
   dragThroughEvents: PropTypes.bool,
   resource: PropTypes.any,
+
+  doctors: PropTypes.array,
 }
 
 DayColumn.defaultProps = {
   dragThroughEvents: true,
   timeslots: 2,
+  doctors: [],
 }
 
 export default DayColumn
